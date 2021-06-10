@@ -8,3 +8,4 @@ node_modules/
 ormconfig.json
 ormlogs.log
 npm-debug.log
+yarn-error.log
