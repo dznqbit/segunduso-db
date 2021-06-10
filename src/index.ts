@@ -1,11 +1,11 @@
-import { appConfig } from "./appConfig";
-import "reflect-metadata";
-import { createConnection } from "typeorm";
-import { Item } from "./entity/Item";
-import axios from "axios";
-import { loadProductIndex, loadProductDetail } from "./scraper";
+import { appConfig } from './appConfig';
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
+import { Item } from './entity/Item';
+import axios from 'axios';
+import { loadProductIndex, loadProductDetail } from './scraper';
 
-const url = "https://www.seconduse.com/inventory";
+const url = 'https://www.seconduse.com/inventory';
 
 async function fetch() {
   try {

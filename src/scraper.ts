@@ -1,4 +1,4 @@
-import cheerio = require("cheerio");
+import cheerio = require('cheerio');
 
 interface ProductIndexProduct {
   name: string;
@@ -33,18 +33,15 @@ interface ProductIndexProduct {
 
 function loadProductIndex(html): ProductIndexProduct[] {
   const $ = cheerio.load(html);
-  return $("#products")
-    .find(".product")
+  return $('#products')
+    .find('.product')
     .map((i, el) => {
       const $el = $(el);
-      const imageUrl = $el.find(".image img").attr("src");
-      const productUrl = $el.find(".info h3 a").attr("href");
-      const name = $el.find(".info h3 a").text();
-      const [location, sku] = $el
-        .find(".info .inventory-no")
-        .text()
-        .split(": ");
-      const price = $el.find(".info .price").text();
+      const imageUrl = $el.find('.image img').attr('src');
+      const productUrl = $el.find('.info h3 a').attr('href');
+      const name = $el.find('.info h3 a').text();
+      const [location, sku] = $el.find('.info .inventory-no').text().split(': ');
+      const price = $el.find('.info .price').text();
       return { name, imageUrl, productUrl, location, sku, price };
     })
     .get();
@@ -130,35 +127,35 @@ interface ProductDetailProduct {
 
 function loadProductDetail(html): {} {
   const $ = cheerio.load(html);
-  const $p = $(".product");
-  const name = $p.find("#info h2").text();
-  const price = $p.find("#info .price").text();
-  const description = $p.find("#info .description").text();
+  const $p = $('.product');
+  const name = $p.find('#info h2').text();
+  const price = $p.find('#info .price').text();
+  const description = $p.find('#info .description').text();
 
   const detailTextLines = $p
-    .find("#info #details")
+    .find('#info #details')
     .text()
-    .split("\n")
+    .split('\n')
     .map((s) => s.trim())
     .filter((s) => s.length > 0);
   const detail = (detail) => {
     const detailLabel = `${detail}:`;
     return detailTextLines
       .find((s) => s.startsWith(detailLabel))
-      ?.replace(detailLabel, "")
+      ?.replace(detailLabel, '')
       .trim();
   };
 
-  const sku = detail("Item");
-  const location = detail("Location");
-  const rack = detail("Rack");
-  const quantity = detail("Quantity");
-  const width = detail("Width");
-  const length = detail("Length");
-  const height = detail("Height");
-  const timeInStock = detail("Time in Stock");
-  const condition = detail("Condition");
-  const jobNumber = detail("Job Number");
+  const sku = detail('Item');
+  const location = detail('Location');
+  const rack = detail('Rack');
+  const quantity = detail('Quantity');
+  const width = detail('Width');
+  const length = detail('Length');
+  const height = detail('Height');
+  const timeInStock = detail('Time in Stock');
+  const condition = detail('Condition');
+  const jobNumber = detail('Job Number');
 
   return {
     name,

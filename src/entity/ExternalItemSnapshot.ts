@@ -1,11 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class ExternalItemSnapshot {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "timestamp" })
+  @Column({ type: 'timestamp' })
   createdAt: Date;
 
   @Column()
