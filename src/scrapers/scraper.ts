@@ -1,5 +1,9 @@
 import cheerio = require('cheerio');
 
+export function hello() {
+  return 'hello';
+}
+
 interface ProductIndexProduct {
   name: string;
   imageUrl: string;
