@@ -18,7 +18,7 @@ interface ProductIndexProduct {
 // 		</div>
 // 	</div>
 // 	<div class="info">
-// 		<h3><a href="https://www.seconduse.com/inventory/items/563612-T/interior-28-lite-french-door/">Interior 28 Lite French Door</a></h3>		
+// 		<h3><a href="https://www.seconduse.com/inventory/items/563612-T/interior-28-lite-french-door/">Interior 28 Lite French Door</a></h3>
 //     <p class="inventory-no"><strong><span class="location">Tacoma</span>:</strong> 563612-T</p>
 // 		<p class="price"><strong>$ 95.00</strong></p>
 // 			<a href="#" class="favorite logged-out" data-id="563612-T">
@@ -33,16 +33,21 @@ interface ProductIndexProduct {
 
 function loadProductIndex(html): ProductIndexProduct[] {
   const $ = cheerio.load(html);
-  return $("#products").find(".product").map((i, el) => {
-    const $el = $(el);
-    const imageUrl = $el.find('.image img').attr('src');
-    const productUrl = $el.find('.info h3 a').attr('href');
-    const name = $el.find('.info h3 a').text();
-    const [location, sku] = $el.find('.info .inventory-no').text().split(': ');
-    const price = $el.find('.info .price').text();
-    return { name, imageUrl, productUrl, location, sku, price };
-  })
-    .get()
+  return $("#products")
+    .find(".product")
+    .map((i, el) => {
+      const $el = $(el);
+      const imageUrl = $el.find(".image img").attr("src");
+      const productUrl = $el.find(".info h3 a").attr("href");
+      const name = $el.find(".info h3 a").text();
+      const [location, sku] = $el
+        .find(".info .inventory-no")
+        .text()
+        .split(": ");
+      const price = $el.find(".info .price").text();
+      return { name, imageUrl, productUrl, location, sku, price };
+    })
+    .get();
 }
 
 interface ProductDetailProduct {
@@ -60,7 +65,7 @@ interface ProductDetailProduct {
 // 	  <a href="https://www.seconduse.com/inventory/categories/decor/art-wall-decor/">Art &amp; Wall Decor</a><span>&gt;</span>
 // 	  <a href="https://www.seconduse.com/inventory/categories/decor/art-wall-decor/other-art-wall-decor/">Other</a><span>&gt;</span>
 //    </div>
-// 						<div id="photos">		
+// 						<div id="photos">
 // 								<div id="medium-photos" class="slick-initialized slick-slider">
 // 																			<div class="slick-list draggable" tabindex="0"><div class="slick-track" style="opacity: 1; width: 347px; transform: translate3d(0px, 0px, 0px);"><div class="photo slick-slide slick-active" data-thumbnail="https://s3-us-west-2.amazonaws.com/2u.inventory/seattle/846/846433.jpg?width=48&amp;height=48&amp;timestamp=59000" index="0" style="width: 347px;">
 // 											<a href="#" data-index="0"><span><img src="https://s3-us-west-2.amazonaws.com/2u.inventory/seattle/846/846433.jpg?width=600&amp;height=600&amp;timestamp=59000" alt=""></span></a>
@@ -120,40 +125,54 @@ interface ProductDetailProduct {
 // 	<p>Inventory database updated 2/22/2021 5:55:07 PM</p>
 // </div>
 // 						</div>
-// 					</div>			
+// 					</div>
 // 			</article>
 
 function loadProductDetail(html): {} {
   const $ = cheerio.load(html);
-  const $p = $('.product');
-  const name = $p.find('#info h2').text();
-  const price = $p.find('#info .price').text();
-  const description = $p.find('#info .description').text();
+  const $p = $(".product");
+  const name = $p.find("#info h2").text();
+  const price = $p.find("#info .price").text();
+  const description = $p.find("#info .description").text();
 
-  const detailTextLines = $p.find('#info #details').text()
-      .split('\n')
-      .map(s => s.trim())
-      .filter(s => s.length > 0)
-    ;
-  
+  const detailTextLines = $p
+    .find("#info #details")
+    .text()
+    .split("\n")
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
   const detail = (detail) => {
-    const detailLabel = `${detail}:`
-    return detailTextLines.find(s => s.startsWith(detailLabel))
-      ?.replace(detailLabel, '').trim();
-  }
-  
-  const sku = detail('Item');
-  const location = detail('Location');
-  const rack = detail('Rack');
-  const quantity = detail('Quantity');
-  const width = detail('Width');
-  const length = detail('Length');
-  const height = detail('Height');
-  const timeInStock = detail('Time in Stock');
-  const condition = detail('Condition');
-  const jobNumber = detail('Job Number');
+    const detailLabel = `${detail}:`;
+    return detailTextLines
+      .find((s) => s.startsWith(detailLabel))
+      ?.replace(detailLabel, "")
+      .trim();
+  };
 
-  return { name, sku, location, rack, quantity, width, length, height, timeInStock, condition, jobNumber };
+  const sku = detail("Item");
+  const location = detail("Location");
+  const rack = detail("Rack");
+  const quantity = detail("Quantity");
+  const width = detail("Width");
+  const length = detail("Length");
+  const height = detail("Height");
+  const timeInStock = detail("Time in Stock");
+  const condition = detail("Condition");
+  const jobNumber = detail("Job Number");
+
+  return {
+    name,
+    sku,
+    location,
+    rack,
+    quantity,
+    width,
+    length,
+    height,
+    timeInStock,
+    condition,
+    jobNumber,
+  };
 }
 
 export { loadProductIndex, loadProductDetail };

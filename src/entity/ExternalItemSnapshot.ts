@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class ExternalItemSnapshot {
@@ -37,7 +37,7 @@ export class ExternalItemSnapshot {
 
   @Column()
   type: string;
-  
+
   @Column()
   material: string;
 
