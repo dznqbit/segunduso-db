@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import { Item } from './entity/Item';
 import axios from 'axios';
-import { loadProductIndex, loadProductDetail } from './scraper';
+import { loadProductIndex, loadProductDetail } from './scapers/scraper';
 
 const url = 'https://www.seconduse.com/inventory';
 
