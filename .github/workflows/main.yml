@@ -1,10 +1,8 @@
 name: CI
-
 on:
   push:
     branches: [ main ]
   pull_request:
-
 jobs:
   CI:
     runs-on: ubuntu-latest
@@ -21,3 +19,15 @@ jobs:
 
       - name: Test
         run: npm t
+
+  Deploy:
+    if: ${{ github.ref == 'main' }}
+    runs-on: ubuntu-latest
+    needs: CI
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "segunduso-db"
+          heroku_email: "quinton.harris@gmail.com"
