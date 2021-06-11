@@ -6,6 +6,9 @@
     "url": "git://github.com/dznqbit/segunduso-db.git"
   },
   "main": "index.js",
+  "engines": {
+    "node": "v14.15.4"
+  },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.14.5",
