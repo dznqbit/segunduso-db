@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: npm i
+
+      - name: Lint
+        run: |
+          npm run lint
+          npm run types:check
+      
+      - name: Test
+        run: npm t
