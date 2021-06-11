@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  CI:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,6 +18,6 @@ jobs:
         run: |
           npm run lint
           npm run types:check
-      
+
       - name: Test
         run: npm t
