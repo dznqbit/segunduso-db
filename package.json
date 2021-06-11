@@ -5,7 +5,6 @@
     "type": "git",
     "url": "git://github.com/dznqbit/segunduso-db.git"
   },
-  "main": "index.js",
   "engines": {
     "node": "v14.15.4"
   },
@@ -33,11 +32,13 @@
     "cheerio": "^1.0.0-rc.10",
     "express": "^4.17.1",
     "mysql": "^2.14.1",
+    "node-cron": "^3.0.0",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^9.0.0",
     "typeorm": "0.2.29"
   },
+  "main": "index.js",
   "scripts": {
     "postinstall": "tsc",
     "dev": "nodemon --config nodemon.json src/index.ts",

@@ -1,4 +1,5 @@
 import express = require('express');
+import cron = require('node-cron');
 import { appConfig } from './appConfig';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
@@ -36,6 +37,10 @@ app.get('/', (req, res) => {
 
 app.get('/healthcheck', (req, res) => {
   res.send('👍\n');
+});
+
+cron.schedule('* * * * *', function () {
+  console.log('running a task every minute');
 });
 
 app.listen(port, () => {
