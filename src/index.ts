@@ -1,3 +1,4 @@
+import express = require('express');
 import { appConfig } from './appConfig';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
@@ -26,6 +27,17 @@ async function fetch() {
   }
 }
 
-fetch()
-  .then(() => {})
-  .catch(() => {});
+const app = express();
+const port = 8080;
+
+app.get('/', (req, res) => {
+  res.send('Hello world!');
+});
+
+app.get('/healthcheck', (req, res) => {
+  res.send('👍\n');
+});
+
+app.listen(port, () => {
+  console.log(`server started at http://localhost:${port}`);
+});
