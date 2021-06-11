@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: debug
+        run: |
+          echo "github ref: ${{ github.ref }}"
+          echo "secret: ${{ secrets.HEROKU_API_KEY }}"
+
       - uses: actions/checkout@v2
       - name: Build
         run: npm i
