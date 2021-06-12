@@ -2,16 +2,13 @@ import express = require('express');
 import cron = require('node-cron');
 import { appConfig } from './appConfig';
 import 'reflect-metadata';
-import { createConnection } from 'typeorm';
 import { Item } from './entity/Item';
 import axios from 'axios';
 import { loadProductIndex, loadProductDetail } from './scrapers/scraper';
-
-const url = 'https://www.seconduse.com/inventory';
-
+import { createConnection } from './typeorm';
 async function fetch() {
   try {
-    const productIndexResponse = await axios(url);
+    const productIndexResponse = await axios(`${appConfig.secondUseHost}/inventory`);
     const products = loadProductIndex(productIndexResponse.data);
 
     products.forEach(async (p) => {
@@ -29,7 +26,7 @@ async function fetch() {
 }
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT ?? 8080;
 
 app.get('/', (req, res) => {
   res.send('Hello world!');
@@ -43,6 +40,13 @@ cron.schedule('* * * * *', function () {
   console.log('running a task every minute');
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`server started at http://localhost:${port}`);
+
+  try {
+    const connection = await createConnection();
+    console.log('connection yahoo');
+  } catch {
+    console.log('connection failure');
+  }
 });

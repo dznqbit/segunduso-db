@@ -1,14 +1,20 @@
+import { ConnectionOptions, DatabaseType, LoggerOptions } from 'typeorm';
 require('dotenv').config();
 
+type AppConfig = {
+  secondUseHost: string;
+  database: ConnectionOptions;
+};
+
 export const appConfig = {
-  typeOrm: {
-    connection: process.env.TYPEORM_CONNECTION,
-    host: process.env.TYPEORM_HOST,
-    username: process.env.TYPEORM_USERNAME,
-    password: process.env.TYPEORM_PASSWORD,
-    database: process.env.TYPEORM_DATABASE,
-    port: process.env.TYPEORM_PORT,
-    synchronize: process.env.TYPEORM_SYNCHRONIZE,
-    logging: process.env.TYPEORM_LOGGING,
+  secondUseHost: process.env.SECOND_USE_HOST ?? 'https://www.seconduse.com',
+  database: {
+    connection: process.env.DB_CONNECTION as DatabaseType,
+    host: process.env.DB_HOST,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    port: Number(process.env.DB_PORT),
+    logging: process.env.DB_LOGGING as LoggerOptions,
   },
 };

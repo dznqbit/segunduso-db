@@ -33,7 +33,7 @@
     "express": "^4.17.1",
     "mysql": "^2.14.1",
     "node-cron": "^3.0.0",
-    "pg": "^8.5.1",
+    "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^9.0.0",
     "typeorm": "0.2.29"
