@@ -12,6 +12,6 @@ export const createConnection = async () =>
     password: appConfig.database.password,
     database: appConfig.database.database,
     entities: [ExternalItemSnapshot, Item],
-    synchronize: true,
+    synchronize: false,
     logging: appConfig.database.logging ?? 'all',
   });
