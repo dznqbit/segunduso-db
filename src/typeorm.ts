@@ -1,6 +1,7 @@
 import { createConnection as typeOrmCreateConnection, ConnectionOptions } from 'typeorm';
 import { appConfig } from './appConfig';
 import { Item } from './entity/Item';
+import { ExternalItemSnapshot } from './entity/ExternalItemSnapshot';
 
 export const createConnection = async () =>
   typeOrmCreateConnection({
@@ -10,7 +11,7 @@ export const createConnection = async () =>
     username: appConfig.database.username,
     password: appConfig.database.password,
     database: appConfig.database.database,
-    entities: [Item],
+    entities: [ExternalItemSnapshot, Item],
     synchronize: true,
     logging: appConfig.database.logging ?? 'all',
   });
